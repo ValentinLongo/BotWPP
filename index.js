@@ -4,7 +4,11 @@ const qrcode = require('qrcode');
 const app = express();
 
 // Crear cliente de WhatsApp
-const client = new Client();
+const client = new Client({
+	puppeteer: {
+		args: ['--no-sandbox'],
+	}
+});
 
 // Configurar middleware para el análisis de solicitudes JSON
 app.use(express.json());
