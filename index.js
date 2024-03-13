@@ -63,12 +63,15 @@ app.post('/mensaje-contacto', async (req, res) => {
         const nombre = req.body.nombre;
         const email = req.body.email;
         const mensaje = req.body.mensaje;
-        const numeroDestino = '5493534226477@c.us';
+        
 
         const info = `Nombre: ${nombre}\n Email: ${email} \n Mensaje: ${mensaje}`
 
-        if (numeroDestino && info) {
-            await client.sendMessage(numeroDestino, info);
+        if (info) {
+            await client.sendMessage('5493534226477@c.us', info);
+            await client.sendMessage('5493536568554@c.us', info);
+            await client.sendMessage('5493534242132@c.us', info);
+            
             res.status(200).json({ status: 'Mensaje enviado correctamente' });
         } else {
             res.status(400).json({ error: 'Falta el número de destino o el mensaje' });
