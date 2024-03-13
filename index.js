@@ -2,6 +2,7 @@ const express = require('express');
 const { Client } = require('whatsapp-web.js');
 const qrcode = require('qrcode');
 const app = express();
+const cors = require('cors');
 
 // Crear cliente de WhatsApp
 const client = new Client({
@@ -13,6 +14,7 @@ const client = new Client({
 // Configurar middleware para el análisis de solicitudes JSON
 app.use(express.json());
 
+app.use(cors());
 // Ruta para generar y mostrar el código QR
 app.get('/qr', (req, res) => {
     try {
@@ -45,6 +47,28 @@ app.post('/enviar-mensaje', async (req, res) => {
 
         if (numeroDestino && mensaje) {
             await client.sendMessage(numeroDestino, mensaje);
+            res.status(200).json({ status: 'Mensaje enviado correctamente' });
+        } else {
+            res.status(400).json({ error: 'Falta el número de destino o el mensaje' });
+        }
+    } catch (error) {
+        console.error('Error al enviar el mensaje:', error);
+        res.status(500).json({ error: 'Ocurrió un error al enviar el mensaje' });
+    }
+});
+
+//Opcion 1 recepcion de mensaje, POST con destinatario 
+app.post('/mensaje-contacto', async (req, res) => {
+    try {
+        const nombre = req.body.nombre;
+        const email = req.body.email;
+        const mensaje = req.body.mensaje;
+        const numeroDestino = '5493534226477@c.us';
+
+        const info = `Nombre: ${nombre}\n Email: ${email} \n Mensaje: ${mensaje}`
+
+        if (numeroDestino && info) {
+            await client.sendMessage(numeroDestino, info);
             res.status(200).json({ status: 'Mensaje enviado correctamente' });
         } else {
             res.status(400).json({ error: 'Falta el número de destino o el mensaje' });
