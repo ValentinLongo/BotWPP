@@ -2,7 +2,7 @@ const express = require('express');
 const { Client } = require('whatsapp-web.js');
 const qrcode = require('qrcode');
 const app = express();
-const cors = require('cors');
+//const cors = require('cors');
 
 // Crear cliente de WhatsApp
 const client = new Client(
@@ -16,7 +16,7 @@ const client = new Client(
 // Configurar middleware para el análisis de solicitudes JSON
 app.use(express.json());
 
-app.use(cors());
+//app.use(cors());
 // Ruta para generar y mostrar el código QR
 app.get('/qr', (req, res) => {
     try {
