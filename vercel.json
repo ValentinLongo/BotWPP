@@ -1,24 +1,20 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "vercel-sapper"
-    },
-    {
-      "src": "index.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/mensaje-contacto",
-      "dest": "http://52.67.131.88:3000/mensaje-contacto",
-      "methods": ["POST"]
-    },
-    {
-      "src": "/(.*)",
-      "dest": "index.js"
-    }
-  ]
-}
+    "version": 2,
+    "builds": [
+        {
+            "src": "package.json",
+            "use": "vercel-sapper"
+        },
+        {
+            "src": "index.js",
+            "use": "@vercel/node"
+        }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "index.js"
+      }
+    ]
+  }
+  
